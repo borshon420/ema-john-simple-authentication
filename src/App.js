@@ -6,12 +6,16 @@ import Login from './components/Login/Login';
 import NotFound from './components/NotFound/NotFound';
 import OrderReview from './components/OrderReview/OrderReview';
 import PlaceOrder from './components/PlaceOrder/PlaceOrder';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import Register from './components/Register/Register';
+import Shipping from './components/Shipping/Shipping';
 import Shop from './components/Shop/Shop';
+import AuthProvider from './context/AuthProvider';
 
 function App() {
   return (
     <div>
+      <AuthProvider>
       <Router>
         <Header></Header>
         <Switch>
@@ -24,24 +28,27 @@ function App() {
           <Route path="/review">
             <OrderReview></OrderReview>
           </Route>
-          <Route path="/inventory">
+          <PrivateRoute path="/inventory">
             <Inventory></Inventory>
-          </Route>
-          <Route path="/placeorder">
+          </PrivateRoute>
+          <PrivateRoute path="/shipping">
+            <Shipping></Shipping>
+          </PrivateRoute>
+          <PrivateRoute path="/placeorder">
             <PlaceOrder></PlaceOrder>
-          </Route>
+          </PrivateRoute>
           <Route path="/login">
             <Login></Login>
           </Route>
           <Route path="/register">
             <Register></Register>
           </Route>
-          
           <Route path="*">
             <NotFound></NotFound>
           </Route>
         </Switch>
       </Router>
+      </AuthProvider>
 
     </div>
   );
